@@ -16,9 +16,9 @@
         <h2>View Note</h2>
         <form action="note" method="post">
         <b>Title: </b>
-        <input type="text" value="${title}"><br>
+        <input type="text" value="${title}" name="title"><br>
         <b>Contents:</b><br>
-        <textarea rows="4" cols="50">${contents}</textarea><br>
+        <textarea rows="4" cols="50" name="contents">${contents}</textarea><br>
         <input type="submit" value="Save">
         </form>
         <a href="note">View</a>

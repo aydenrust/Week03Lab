@@ -6,13 +6,17 @@
 package servlets;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Note;
 
 /**
  *
@@ -31,8 +35,6 @@ public class NoteServlet extends HttpServlet {
        String edit = request.getParameter("edit");
         
        
-     
-       
         String path = getServletContext().getRealPath("/WEB-INF/note.txt");
         
         BufferedReader br = new BufferedReader(new FileReader(new File(path)));
@@ -50,8 +52,11 @@ public class NoteServlet extends HttpServlet {
             }
         }
 
-        request.setAttribute("title", title);
-        request.setAttribute("contents", contents);
+        Note note = new Note(title, contents);
+        
+        request.setAttribute("title", note.getTitle());
+        request.setAttribute("contents", note.getContents());
+        
         if(edit != null){
         getServletContext().getRequestDispatcher("/WEB-INF/editnote.jsp").forward(request, response);
         }else{
@@ -64,8 +69,17 @@ public class NoteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String path = getServletContext().getRealPath("/WEB-INF/note.txt");
+        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, false)));
+        String title = request.getParameter("title");
+        String contents = request.getParameter("contents");
         
-    
+        Note note = new Note(title, contents);
+        
+        pw.write(note.getTitle() + "\n");
+        pw.write(note.getContents());
+        
+    pw.close();
 
         getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
     }

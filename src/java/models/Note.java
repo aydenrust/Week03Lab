@@ -14,32 +14,28 @@ import java.io.Serializable;
  */
 public class Note implements Serializable {
     
-    public static final String PROP_SAMPLE_PROPERTY = "sampleProperty";
-    
-    private String sampleProperty;
-    
-    private PropertyChangeSupport propertySupport;
-    
-    public Note() {
-        propertySupport = new PropertyChangeSupport(this);
-    }
-    
-    public String getSampleProperty() {
-        return sampleProperty;
-    }
-    
-    public void setSampleProperty(String value) {
-        String oldValue = sampleProperty;
-        sampleProperty = value;
-        propertySupport.firePropertyChange(PROP_SAMPLE_PROPERTY, oldValue, sampleProperty);
-    }
-    
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        propertySupport.addPropertyChangeListener(listener);
-    }
-    
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        propertySupport.removePropertyChangeListener(listener);
-    }
-    
+   public String title;
+   public String contents;
+   
+   public Note(String title, String contents){
+       this.title = title;
+       this.contents = contents;
+   }
+   
+   public void setTitle(String title){
+       this.title = title;
+   }
+   
+   public void setContents(String contents){
+       this.contents = contents;
+   }
+   
+   public String getTitle(){
+       return this.title;
+   }
+   
+   public String getContents(){
+       return this.contents;
+   }
+   
 }
